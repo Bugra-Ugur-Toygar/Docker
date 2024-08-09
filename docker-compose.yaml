@@ -1,0 +1,27 @@
+version: "3"
+services:
+  web-01:
+    image: nginx
+    ports:
+      - 80:80
+    links: -mysql
+    volumes:
+      - ./html:/usr/share/nginx/html
+  web-02:
+    image: node:latest
+    ports:
+      - 81:80
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ecommerce_root_password
+      MYSQL_DATABASE: ecommerce_db
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_password
+      volumes:
+        - db_data:/var/lib/mysql
+
+volumes:
+  node_data:
+  db_data:
